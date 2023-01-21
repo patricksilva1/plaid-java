@@ -46,19 +46,19 @@ public class ApiClient {
     okBuilder = new OkHttpClient.Builder()
         .readTimeout(60, TimeUnit.SECONDS).connectTimeout(60, TimeUnit.SECONDS)
         .addInterceptor(new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Request originalRequest = chain.request();
-                Request requestWithUserAgent = originalRequest.newBuilder()
-                        .header("User-Agent", "Plaid Java v13.3.0")
-                        .header("Plaid-Version", "2020-09-14")
-                        .build();
-                return chain.proceed(requestWithUserAgent);
-            }
+          @Override
+          public Response intercept(Chain chain) throws IOException {
+            Request originalRequest = chain.request();
+            Request requestWithUserAgent = originalRequest.newBuilder()
+                .header("User-Agent", "Plaid Java v13.3.0")
+                .header("Plaid-Version", "2020-09-14")
+                .build();
+            return chain.proceed(requestWithUserAgent);
+          }
         });
   }
 
-  public ApiClient(OkHttpClient client){
+  public ApiClient(OkHttpClient client) {
     apiAuthorizations = new LinkedHashMap<String, Interceptor>();
     createDefaultAdapter();
     okHttpClient = client;
@@ -66,16 +66,16 @@ public class ApiClient {
 
   public ApiClient(String[] authNames) {
     this();
-    for(String authName : authNames) {
+    for (String authName : authNames) {
       Interceptor auth;
       if ("clientId".equals(authName)) {
-        
+
         auth = new ApiKeyAuth("header", "PLAID-CLIENT-ID");
       } else if ("plaidVersion".equals(authName)) {
-        
+
         auth = new ApiKeyAuth("header", "Plaid-Version");
       } else if ("secret".equals(authName)) {
-        
+
         auth = new ApiKeyAuth("header", "PLAID-SECRET");
       } else {
         throw new RuntimeException("auth name \"" + authName + "\" not found in available auth names");
@@ -90,23 +90,23 @@ public class ApiClient {
    */
   public ApiClient(Map<String, String> apiKeys) {
     this();
-    for(String authName : apiKeys.keySet()) {
+    for (String authName : apiKeys.keySet()) {
       Interceptor auth;
       if ("clientId".equals(authName)) {
-        
+
         ApiKeyAuth apiKeyAuth = new ApiKeyAuth("header", "PLAID-CLIENT-ID");
-		apiKeyAuth.setApiKey(apiKeys.get(authName));
-		auth = (Interceptor) apiKeyAuth;
+        apiKeyAuth.setApiKey(apiKeys.get(authName));
+        auth = (Interceptor) apiKeyAuth;
       } else if ("plaidVersion".equals(authName)) {
-        
+
         ApiKeyAuth apiKeyAuth = new ApiKeyAuth("header", "Plaid-Version");
-		apiKeyAuth.setApiKey(apiKeys.get(authName));
-		auth = (Interceptor) apiKeyAuth;
+        apiKeyAuth.setApiKey(apiKeys.get(authName));
+        auth = (Interceptor) apiKeyAuth;
       } else if ("secret".equals(authName)) {
-        
+
         ApiKeyAuth apiKeyAuth = new ApiKeyAuth("header", "PLAID-SECRET");
-		apiKeyAuth.setApiKey(apiKeys.get(authName));
-		auth = (Interceptor) apiKeyAuth;
+        apiKeyAuth.setApiKey(apiKeys.get(authName));
+        auth = (Interceptor) apiKeyAuth;
       } else {
         throw new RuntimeException("auth name \"" + authName + "\" not found in available auth names");
       }
@@ -117,16 +117,18 @@ public class ApiClient {
 
   /**
    * Basic constructor for single auth name
+   * 
    * @param authName Authentication name
    */
   public ApiClient(String authName) {
-    this(new String[]{authName});
+    this(new String[] { authName });
   }
 
   /**
    * Helper constructor for single api key
+   * 
    * @param authName Authentication name
-   * @param apiKey API key
+   * @param apiKey   API key
    */
   public ApiClient(String authName, String apiKey) {
     this(authName);
@@ -135,13 +137,14 @@ public class ApiClient {
 
   /**
    * Helper constructor for single basic auth or password oauth2
+   * 
    * @param authName Authentication name
    * @param username Username
    * @param password Password
    */
   public ApiClient(String authName, String username, String password) {
     this(authName);
-    this.setCredentials(username,  password);
+    this.setCredentials(username, password);
   }
 
   public void createDefaultAdapter() {
@@ -151,33 +154,35 @@ public class ApiClient {
     if (!baseUrl.endsWith("/"))
       baseUrl = baseUrl + "/";
 
-    adapterBuilder = new Retrofit
-      .Builder()
-      .baseUrl(baseUrl)
-      .addConverterFactory(ScalarsConverterFactory.create())
-      .addConverterFactory(GsonCustomConverterFactory.create(json.getGson()));
+    adapterBuilder = new Retrofit.Builder()
+        .baseUrl(baseUrl)
+        .addConverterFactory(ScalarsConverterFactory.create())
+        .addConverterFactory(GsonCustomConverterFactory.create(json.getGson()));
   }
+
   public void setPlaidAdapter(String baseUrl) {
     json = new JSON();
 
-    List<String> PLAID_ENVS = Arrays.asList("https://sandbox.plaid.com", "https://production.plaid.com", "https://development.plaid.com");
+    List<String> PLAID_ENVS = Arrays.asList("https://sandbox.plaid.com", "https://production.plaid.com",
+        "https://development.plaid.com");
 
-    if(!PLAID_ENVS.contains(baseUrl)) {
-      System.out.println("baseUrl not found in PLAID_ENVS, must be one of the following: https://sandbox.plaid.com, https://production.plaid.com, https://development.plaid.com");
+    if (!PLAID_ENVS.contains(baseUrl)) {
+      System.out.println(
+          "baseUrl not found in PLAID_ENVS, must be one of the following: https://sandbox.plaid.com, https://production.plaid.com, https://development.plaid.com");
     }
 
     if (!baseUrl.endsWith("/"))
       baseUrl = baseUrl + "/";
 
-    adapterBuilder = new Retrofit
-      .Builder()
-      .baseUrl(baseUrl)
-      .addConverterFactory(ScalarsConverterFactory.create())
-      .addConverterFactory(GsonCustomConverterFactory.create(json.getGson()));
+    adapterBuilder = new Retrofit.Builder()
+        .baseUrl(baseUrl)
+        .addConverterFactory(ScalarsConverterFactory.create())
+        .addConverterFactory(GsonCustomConverterFactory.create(json.getGson()));
   }
 
   /**
    * Helper to set a specific timeout for read and connect
+   * 
    * @param overrideTimeout timeout in seconds
    */
   public void setTimeout(int overrideTimeout) {
@@ -186,9 +191,9 @@ public class ApiClient {
 
   public <S> S createService(Class<S> serviceClass) {
     if (okHttpClient != null) {
-        return adapterBuilder.client(okHttpClient).build().create(serviceClass);
+      return adapterBuilder.client(okHttpClient).build().create(serviceClass);
     } else {
-        return adapterBuilder.client(okBuilder.build()).build().create(serviceClass);
+      return adapterBuilder.client(okBuilder.build()).build().create(serviceClass);
     }
   }
 
@@ -212,14 +217,14 @@ public class ApiClient {
     return this;
   }
 
-
   /**
    * Helper method to configure the first api key found
+   * 
    * @param apiKey API key
    * @return ApiClient
    */
   public ApiClient setApiKey(String apiKey) {
-    for(Interceptor apiAuthorization : apiAuthorizations.values()) {
+    for (Interceptor apiAuthorization : apiAuthorizations.values()) {
       if (apiAuthorization instanceof ApiKeyAuth) {
         ApiKeyAuth keyAuth = (ApiKeyAuth) apiAuthorization;
         keyAuth.setApiKey(apiKey);
@@ -231,6 +236,7 @@ public class ApiClient {
 
   /**
    * Helper method to set token for the first Http Bearer authentication found.
+   * 
    * @param bearerToken Bearer token
    * @return ApiClient
    */
@@ -245,13 +251,15 @@ public class ApiClient {
   }
 
   /**
-   * Helper method to configure the username/password for basic auth or password oauth
+   * Helper method to configure the username/password for basic auth or password
+   * oauth
+   * 
    * @param username Username
    * @param password Password
    * @return ApiClient
    */
   public ApiClient setCredentials(String username, String password) {
-    for(Interceptor apiAuthorization : apiAuthorizations.values()) {
+    for (Interceptor apiAuthorization : apiAuthorizations.values()) {
       if (apiAuthorization instanceof HttpBasicAuth) {
         HttpBasicAuth basicAuth = (HttpBasicAuth) apiAuthorization;
         basicAuth.setCredentials(username, password);
@@ -261,10 +269,10 @@ public class ApiClient {
     return this;
   }
 
-
   /**
    * Adds an authorization to be used by the client
-   * @param authName Authentication name
+   * 
+   * @param authName      Authentication name
    * @param authorization Authorization interceptor
    * @return ApiClient
    */
@@ -273,8 +281,9 @@ public class ApiClient {
       throw new RuntimeException("auth name \"" + authName + "\" already in api authorizations");
     }
     apiAuthorizations.put(authName, authorization);
-    if(okBuilder == null){
-        throw new RuntimeException("The ApiClient was created with a built OkHttpClient so it's not possible to add an authorization interceptor to it");
+    if (okBuilder == null) {
+      throw new RuntimeException(
+          "The ApiClient was created with a built OkHttpClient so it's not possible to add an authorization interceptor to it");
     }
     okBuilder.addInterceptor(authorization);
 
@@ -304,13 +313,15 @@ public class ApiClient {
   }
 
   public void addAuthsToOkBuilder(OkHttpClient.Builder okBuilder) {
-    for(Interceptor apiAuthorization : apiAuthorizations.values()) {
+    for (Interceptor apiAuthorization : apiAuthorizations.values()) {
       okBuilder.addInterceptor(apiAuthorization);
     }
   }
 
   /**
-   * Clones the okBuilder given in parameter, adds the auth interceptors and uses it to configure the Retrofit
+   * Clones the okBuilder given in parameter, adds the auth interceptors and uses
+   * it to configure the Retrofit
+   * 
    * @param okClient An instance of OK HTTP client
    */
   public void configureFromOkclient(OkHttpClient okClient) {
@@ -333,19 +344,18 @@ class GsonResponseBodyConverterToString<T> implements Converter<ResponseBody, T>
     this.type = type;
   }
 
-  @Override public T convert(ResponseBody value) throws IOException {
+  @Override
+  public T convert(ResponseBody value) throws IOException {
     String returned = value.string();
     try {
       return gson.fromJson(returned, type);
-    }
-    catch (JsonParseException e) {
+    } catch (JsonParseException e) {
       return (T) returned;
     }
   }
 }
 
-class GsonCustomConverterFactory extends Converter.Factory
-{
+class GsonCustomConverterFactory extends Converter.Factory {
   private final Gson gson;
   private final GsonConverterFactory gsonConverterFactory;
 
@@ -369,7 +379,8 @@ class GsonCustomConverterFactory extends Converter.Factory
   }
 
   @Override
-  public Converter<?, RequestBody> requestBodyConverter(Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
+  public Converter<?, RequestBody> requestBodyConverter(Type type, Annotation[] parameterAnnotations,
+      Annotation[] methodAnnotations, Retrofit retrofit) {
     return gsonConverterFactory.requestBodyConverter(type, parameterAnnotations, methodAnnotations, retrofit);
   }
 }

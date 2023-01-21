@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.plaid.client;
 
 import java.util.Collection;
@@ -19,7 +18,8 @@ import java.util.Iterator;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-01-18T17:46:09.980340Z[Etc/UTC]")
 public class StringUtil {
   /**
-   * Check if the given array contains the given value (with case-insensitive comparison).
+   * Check if the given array contains the given value (with case-insensitive
+   * comparison).
    *
    * @param array The array
    * @param value The value to search
@@ -40,7 +40,8 @@ public class StringUtil {
   /**
    * Join an array of strings with the given separator.
    * <p>
-   * Note: This might be replaced by utility method from commons-lang or guava someday
+   * Note: This might be replaced by utility method from commons-lang or guava
+   * someday
    * if one of those libraries is added as dependency.
    * </p>
    *
