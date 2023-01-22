@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.plaid.client.model;
 
 import java.util.Objects;
@@ -26,7 +25,8 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
- * Allow or disallow product access by account. Unlisted (e.g. missing) accounts will be considered &#x60;new_accounts&#x60;.
+ * Allow or disallow product access by account. Unlisted (e.g. missing) accounts
+ * will be considered &#x60;new_accounts&#x60;.
  */
 @ApiModel(description = "Allow or disallow product access by account. Unlisted (e.g. missing) accounts will be considered `new_accounts`.")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-01-18T17:46:09.980340Z[Etc/UTC]")
@@ -43,39 +43,40 @@ public class AccountAccess {
   @SerializedName(SERIALIZED_NAME_ACCOUNT_PRODUCT_ACCESS)
   private AccountProductAccessNullable accountProductAccess;
 
-
   public AccountAccess uniqueId(String uniqueId) {
-    
+
     this.uniqueId = uniqueId;
     return this;
   }
 
-   /**
-   * The unique account identifier for this account. This value must match that returned by the data access API for this account.
+  /**
+   * The unique account identifier for this account. This value must match that
+   * returned by the data access API for this account.
+   * 
    * @return uniqueId
-  **/
+   **/
   @ApiModelProperty(required = true, value = "The unique account identifier for this account. This value must match that returned by the data access API for this account.")
 
   public String getUniqueId() {
     return uniqueId;
   }
 
-
   public void setUniqueId(String uniqueId) {
     this.uniqueId = uniqueId;
   }
 
-
   public AccountAccess authorized(Boolean authorized) {
-    
+
     this.authorized = authorized;
     return this;
   }
 
-   /**
-   * Allow the application to see this account (and associated details, including balance) in the list of accounts  If unset, defaults to &#x60;true&#x60;.
+  /**
+   * Allow the application to see this account (and associated details, including
+   * balance) in the list of accounts If unset, defaults to &#x60;true&#x60;.
+   * 
    * @return authorized
-  **/
+   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "Allow the application to see this account (and associated details, including balance) in the list of accounts  If unset, defaults to `true`.")
 
@@ -83,22 +84,21 @@ public class AccountAccess {
     return authorized;
   }
 
-
   public void setAuthorized(Boolean authorized) {
     this.authorized = authorized;
   }
 
-
   public AccountAccess accountProductAccess(AccountProductAccessNullable accountProductAccess) {
-    
+
     this.accountProductAccess = accountProductAccess;
     return this;
   }
 
-   /**
+  /**
    * Get accountProductAccess
+   * 
    * @return accountProductAccess
-  **/
+   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
 
@@ -106,11 +106,9 @@ public class AccountAccess {
     return accountProductAccess;
   }
 
-
   public void setAccountProductAccess(AccountProductAccessNullable accountProductAccess) {
     this.accountProductAccess = accountProductAccess;
   }
-
 
   @Override
   public boolean equals(Object o) {
@@ -154,4 +152,3 @@ public class AccountAccess {
   }
 
 }
-

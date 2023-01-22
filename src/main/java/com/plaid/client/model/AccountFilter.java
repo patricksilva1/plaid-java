@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.plaid.client.model;
 
 import java.util.Objects;
@@ -27,7 +26,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Enumerates the account subtypes that the application wishes for the user to be able to select from. For more details refer to Plaid documentation on account filters.
+ * Enumerates the account subtypes that the application wishes for the user to
+ * be able to select from. For more details refer to Plaid documentation on
+ * account filters.
  */
 @ApiModel(description = "Enumerates the account subtypes that the application wishes for the user to be able to select from. For more details refer to Plaid documentation on account filters.")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-01-18T17:46:09.980340Z[Etc/UTC]")
@@ -48,9 +49,8 @@ public class AccountFilter {
   @SerializedName(SERIALIZED_NAME_INVESTMENT)
   private List<String> investment = null;
 
-
   public AccountFilter depository(List<String> depository) {
-    
+
     this.depository = depository;
     return this;
   }
@@ -63,10 +63,11 @@ public class AccountFilter {
     return this;
   }
 
-   /**
+  /**
    * A list of account subtypes to be filtered.
+   * 
    * @return depository
-  **/
+   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "A list of account subtypes to be filtered.")
 
@@ -74,14 +75,12 @@ public class AccountFilter {
     return depository;
   }
 
-
   public void setDepository(List<String> depository) {
     this.depository = depository;
   }
 
-
   public AccountFilter credit(List<String> credit) {
-    
+
     this.credit = credit;
     return this;
   }
@@ -94,10 +93,11 @@ public class AccountFilter {
     return this;
   }
 
-   /**
+  /**
    * A list of account subtypes to be filtered.
+   * 
    * @return credit
-  **/
+   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "A list of account subtypes to be filtered.")
 
@@ -105,14 +105,12 @@ public class AccountFilter {
     return credit;
   }
 
-
   public void setCredit(List<String> credit) {
     this.credit = credit;
   }
 
-
   public AccountFilter loan(List<String> loan) {
-    
+
     this.loan = loan;
     return this;
   }
@@ -125,10 +123,11 @@ public class AccountFilter {
     return this;
   }
 
-   /**
+  /**
    * A list of account subtypes to be filtered.
+   * 
    * @return loan
-  **/
+   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "A list of account subtypes to be filtered.")
 
@@ -136,14 +135,12 @@ public class AccountFilter {
     return loan;
   }
 
-
   public void setLoan(List<String> loan) {
     this.loan = loan;
   }
 
-
   public AccountFilter investment(List<String> investment) {
-    
+
     this.investment = investment;
     return this;
   }
@@ -156,10 +153,11 @@ public class AccountFilter {
     return this;
   }
 
-   /**
+  /**
    * A list of account subtypes to be filtered.
+   * 
    * @return investment
-  **/
+   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "A list of account subtypes to be filtered.")
 
@@ -167,11 +165,9 @@ public class AccountFilter {
     return investment;
   }
 
-
   public void setInvestment(List<String> investment) {
     this.investment = investment;
   }
-
 
   @Override
   public boolean equals(Object o) {
@@ -217,4 +213,3 @@ public class AccountFilter {
   }
 
 }
-
