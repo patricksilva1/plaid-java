@@ -42,10 +42,10 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <!-- Plaid generated properties -->
-    <swagger-annotations-version>1.6.9</swagger-annotations-version>
+    <swagger-annotations-version>1.6.10</swagger-annotations-version>
     <oltu-version>1.0.1</oltu-version>
 
-    <swagger-annotations-version>1.6.9</swagger-annotations-version>
+    <swagger-annotations-version>1.6.10</swagger-annotations-version>
     <oltu-version>1.0.1</oltu-version>
     <gson-fire-version>1.8.5</gson-fire-version>
     <oltu-version>1.0.2</oltu-version>
